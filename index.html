@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autopartes Eléctricas SC | Catálogo Oficial</title>
+    <style>
+        :root {
+            --bg-dark: #0a0a0c;
+            --bg-card: #141418;
+            --bg-card-hover: #1c1c22;
+            --primary-red: #e61919;
+            --primary-red-hover: #ff2a2a;
+            --text-main: #f2f2f5;
+            --text-muted: #9e9ea8;
+            --border-color: #27272f;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        /* Header y Navegación */
+        header {
+            background-color: rgba(10, 10, 12, 0.95);
+            border-bottom: 2px solid var(--primary-red);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .logo span {
+            color: var(--primary-red);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        nav a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--primary-red);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, rgba(10, 10, 12, 0.92), rgba(35, 5, 5, 0.88)),
+                        radial-gradient(circle at top right, #4a0808, #0a0a0c);
+            padding: 4.5rem 5%;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .hero h1 span {
+            color: var(--primary-red);
+        }
+
+        .hero p {
+            color: var(--text-muted);
+            max-width: 650px;
+            margin: 0 auto 2rem;
+            font-size: 1.1rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-red);
+            color: #fff;
+            padding: 0.8rem 1.8rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-red-hover);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--primary-red);
+            color: var(--text-main);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary-red);
+        }
+
+        /* Contenedor Principal */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3.5rem 5%;
+        }
+
+        .section-title {
+            font-size: 1.9rem;
+            margin-bottom: 0.5rem;
+            border-left: 4px solid var(--primary-red);
+            padding-left: 12px;
+            text-transform: uppercase;
+        }
+
+        .section-subtitle {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+        /* Buscador y Filtros */
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+            padding: 0.75rem 1rem;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-card);
+            color: var(--text-main);
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .search-box:focus {
+            border-color: var(--primary-red);
+        }
+
+        .filter-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .filter-btn {
+            background-color: var(--bg-card);
+            color: var(--text-muted);
+            border: 1px solid var(--border-color);
+            padding: 0.6rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .filter-btn.active,
+        .filter-btn:hover {
+            background-color: var(--primary-red);
+            color: #fff;
+            border-color: var(--primary-red);
+        }
+
+        /* Grid de Productos */
+        .catalog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .product-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.25s, border-color 0.25s, background-color 0.25s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--primary-red);
+            background-color: var(--bg-card-hover);
+        }
+
+        .product-img {
+            height: 170px;
+            background-color: #1c1c24;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: var(--primary-red);
+            color: #fff;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+
+        .product-info {
+            padding: 1.25rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .product-code {
+            color: var(--primary-red);
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .product-title {
+            font-size: 1.15rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-desc {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .card-actions .btn {
+            flex: 1;
+            padding: 0.6rem;
+            font-size: 0.85rem;
+            text-align: center;
+        }
+
+        /* Sección Ubicación y Contacto */
+        .contact-section {
+            background-color: #0e0e11;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.3fr;
+            gap: 2rem;
+            align-items: stretch;
+        }
+
+        .info-box {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 1.5rem;
+        }
+
+        .info-item h3 {
+            color: var(--primary-red);
+            font-size: 1rem;
+            text-transform: uppercase;
+            margin-bottom: 0.3rem;
+        }
+
+        .info-item p, .info-item a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 1rem;
+        }
+
+        .info-item a:hover {
+            color: var(--primary-red);
+            text-decoration: underline;
+        }
+
+        .phone-highlight {
+            font-size: 1.35rem !important;
+            font-weight: 800;
+            color: #fff !important;
+            display: inline-block;
+            margin-top: 4px;
+        }
+
+        .map-container {
+            border-radius: 10px;
+            overflow: hidden;
+            border: 2px solid var(--border-color);
+            min-height: 340px;
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            min-height: 340px;
+            border: 0;
+            display: block;
+        }
+
+        /* Modal de Detalles */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.85);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .modal.open {
+            display: flex;
+        }
+
+        .modal-content {
+            background-color: var(--bg-card);
+            border: 1px solid var(--primary-red);
+            border-radius: 10px;
+            max-width: 500px;
+            width: 100%;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 18px;
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        .close-modal:hover {
+            color: var(--primary-red);
+        }
+
+        .modal-specs {
+            margin: 1rem 0 1.5rem;
+            background-color: var(--bg-dark);
+            padding: 1rem;
+            border-radius: 6px;
+            border-left: 3px solid var(--primary-red);
+        }
+
+        .modal-specs p {
+            margin-bottom: 0.4rem;
+            font-size: 0.95rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem 5%;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        footer span {
+            color: var(--primary-red);
+            font-weight: 700;
+        }
+
+        @media (max-width: 768px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero h1 {
+                font-size: 1.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Encabezado -->
+    <header>
+        <div class="logo">Autopartes Eléctricas <span>SC</span></div>
+        <nav>
+            <ul>
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#catalogo">Catálogo</a></li>
+                <li><a href="#ubicacion">Ubicación y Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Sección Principal -->
+    <section id="inicio" class="hero">
+        <h1>Especialistas en <span>Sistema Eléctrico</span> Automotriz</h1>
+        <p>Solenoides, bobinas de encendido, relevadores, focos, arneses y refacciones eléctricas de alta calidad en Guadalajara.</p>
+        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+            <a href="#catalogo" class="btn">Ver Catálogo</a>
+            <a href="tel:3313866168" class="btn btn-outline">Llamar: 33 1386 6168</a>
+        </div>
+    </section>
+
+    <!-- Catálogo de Productos -->
+    <section id="catalogo" class="container">
+        <h2 class="section-title">Catálogo de Refacciones</h2>
+        <p class="section-subtitle">Busca por nombre, código de pieza o filtra por categoría.</p>
+
+        <div class="controls">
+            <input type="text" id="searchInput" class="search-box" placeholder="Buscar refacción (ej. UF-549, solenoide, relevador...)">
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-category="todos">Todos</button>
+                <button class="filter-btn" data-category="encendido">Encendido</button>
+                <button class="filter-btn" data-category="arranque">Arranque</button>
+                <button class="filter-btn" data-category="iluminacion">Iluminación</button>
+                <button class="filter-btn" data-category="cableado">Relevadores y Cableado</button>
+            </div>
+        </div>
+
+        <div class="catalog-grid" id="catalogGrid"></div>
+    </section>
+
+    <!-- Ubicación y Contacto -->
+    <section id="ubicacion" class="contact-section">
+        <div class="container">
+            <h2 class="section-title">Ubicación y Contacto</h2>
+            <p class="section-subtitle">Visítanos directamente en nuestro mostrador o comunícate por teléfono para verificar existencias.</p>
+
+            <div class="contact-grid">
+                <div class="info-box">
+                    <div class="info-item">
+                        <h3>Dirección</h3>
+                        <p>Calzada Olímpica 1156A, Guadalajara, Jalisco, México.</p>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Calzada+Olimpica+1156A+Guadalajara+Jalisco" target="_blank" rel="noopener noreferrer" style="display: inline-block; margin-top: 6px; font-size: 0.9rem; color: #e61919;">
+                            Abrir ruta en Google Maps &rarr;
+                        </a>
+                    </div>
+
+                    <div class="info-item">
+                        <h3>Teléfono de Mostrador</h3>
+                        <a href="tel:3313866168" class="phone-highlight">33 1386 6168</a>
+                        <p style="color: var(--text-muted); font-size: 0.85rem;">Atención directa y cotizaciones al momento.</p>
+                    </div>
+
+                    <div class="info-item">
+                        <h3>Horarios de Atención</h3>
+                        <p>Lunes a Viernes: 9:00 AM – 6:30 PM</p>
+                        <p>Sábados: 9:00 AM – 2:30 PM</p>
+                        <p style="color: var(--text-muted); font-size: 0.85rem;">Domingos: Cerrado</p>
+                    </div>
+
+                    <a href="tel:3313866168" class="btn" style="text-align: center;">Llamar Ahora</a>
+                </div>
+
+                <div class="map-container">
+                    <iframe 
+                        src="https://maps.google.com/maps?q=Calzada%20Olimpica%201156A,%20Guadalajara,%20Jalisco&t=&z=16&ie=UTF8&iwloc=&output=embed" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade"
+                        title="Ubicación Autopartes Eléctricas SC">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal de Ficha Técnica -->
+    <div id="productModal" class="modal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeModal">&times;</button>
+            <span class="product-code" id="modalCode">CÓDIGO</span>
+            <h3 id="modalTitle" style="font-size: 1.4rem; margin-top: 4px;">Nombre del Producto</h3>
+            <div class="modal-specs" id="modalSpecs"></div>
+            <div style="display: flex; gap: 0.8rem;">
+                <a href="tel:3313866168" class="btn" style="flex: 1; text-align: center;">Cotizar por Teléfono</a>
+                <button class="btn btn-outline" id="closeModalBtn">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pie de página -->
+    <footer>
+        <p>&copy; 2026 <span>Autopartes Eléctricas SC</span>. Todos los derechos reservados.</p>
+        <p style="margin-top: 4px; font-size: 0.8rem;">Desarrollado por <span>MR software</span></p>
+    </footer>
+
+    <script>
+        const productos = [
+            {
+                codigo: "UF-549",
+                nombre: "Bobina de Encendido Individual",
+                categoria: "encendido",
+                categoriaLabel: "Encendido",
+                descripcion: "Bobina directa de alto rendimiento para sistemas de encendido electrónico.",
+                aplicacion: "Compatible con múltiples modelos Nissan / Renault / Infiniti (verificar conector).",
+                voltaje: "12V DC",
+                imagen: "img/uf-549.jpg"
+            },
+            {
+                codigo: "SOL-12V-HD",
+                nombre: "Solenoide de Marcha (Automático)",
+                categoria: "arranque",
+                categoriaLabel: "Arranque",
+                descripcion: "Solenoide reforzado con contactos de cobre de alta conductividad para motor de arranque.",
+                aplicacion: "Sistemas tipo Delco / Bosch / Valeo 12V.",
+                voltaje: "12V DC",
+                imagen: "img/solenoide.jpg"
+            },
+            {
+                codigo: "REL-40A-5P",
+                nombre: "Relevador Automotriz 5 Patas 40A",
+                categoria: "cableado",
+                categoriaLabel: "Cableado",
+                descripcion: "Relevador conmutador de uso rudo para luces, motoventiladores y bombas de gasolina.",
+                aplicacion: "Universal automotriz 12V.",
+                voltaje: "12V / 30A-40A",
+                imagen: "img/relevador.jpg"
+            },
+            {
+                codigo: "FOC-H4-LED",
+                nombre: "Foco Automotriz H4 Alta Luminosidad",
+                categoria: "iluminacion",
+                categoriaLabel: "Iluminación",
+                descripcion: "Foco para faro principal de doble filamento (alta y baja) con base estándar P43t.",
+                aplicacion: "Faros principales universales.",
+                voltaje: "12V 60/55W",
+                imagen: "img/foco-h4.jpg"
+            },
+            {
+                codigo: "ARN-CER-H4",
+                nombre: "Conector / Arnés Cerámico para Faro",
+                categoria: "cableado",
+                categoriaLabel: "Cableado",
+                descripcion: "Socket cerámico resistente a altas temperaturas con cable calibre grueso.",
+                aplicacion: "Instalaciones de faros de alta potencia.",
+                voltaje: "12V - 24V",
+                imagen: "img/arnes.jpg"
+            },
+            {
+                codigo: "POR-CARB-01",
+                nombre: "Porta Carbones para Marcha",
+                categoria: "arranque",
+                categoriaLabel: "Arranque",
+                descripcion: "Ensamble completo de escobillas y resortes para mantenimiento de motor de arranque.",
+                aplicacion: "Consultar medida y modelo de marcha en mostrador.",
+                voltaje: "12V",
+                imagen: "img/portacarbones.jpg"
+            }
+        ];
+
+        const catalogGrid = document.getElementById("catalogGrid");
+        const searchInput = document.getElementById("searchInput");
+        const filterButtons = document.querySelectorAll(".filter-btn");
+        const modal = document.getElementById("productModal");
+
+        let currentCategory = "todos";
+
+        function renderProductos() {
+            const query = searchInput.value.toLowerCase().trim();
+            catalogGrid.innerHTML = "";
+
+            const filtrados = productos.filter(prod => {
+                const matchCat = currentCategory === "todos" || prod.categoria === currentCategory;
+                const matchText = prod.nombre.toLowerCase().includes(query) ||
+                                  prod.codigo.toLowerCase().includes(query) ||
+                                  prod.descripcion.toLowerCase().includes(query);
+                return matchCat && matchText;
+            });
+
+            if (filtrados.length === 0) {
+                catalogGrid.innerHTML = `<p style="color: var(--text-muted); grid-column: 1 / -1; text-align: center; padding: 2rem;">No se encontraron refacciones con ese criterio. Llama al 33 1386 6168 para consultar disponibilidad.</p>`;
+                return;
+            }
+
+            filtrados.forEach((prod, index) => {
+                const card = document.createElement("div");
+                card.className = "product-card";
+                card.innerHTML = `
+                    <div class="product-img">
+                        <span class="product-badge">${prod.categoriaLabel}</span>
+                        <img src="${prod.imagen}" alt="${prod.nombre}" onerror="this.style.display='none'; this.parentElement.innerHTML += '<span style=\\'color:#666; font-weight:700;\\'>${prod.codigo}</span>';">
+                    </div>
+                    <div class="product-info">
+                        <div>
+                            <div class="product-code">${prod.codigo}</div>
+                            <h3 class="product-title">${prod.nombre}</h3>
+                            <p class="product-desc">${prod.descripcion}</p>
+                        </div>
+                        <div class="card-actions">
+                            <button class="btn btn-outline" onclick="abrirModal(${index})">Detalles</button>
+                            <a href="tel:3313866168" class="btn">Llamar</a>
+                        </div>
+                    </div>
+                `;
+                catalogGrid.appendChild(card);
+            });
+        }
+
+        function abrirModal(index) {
+            const query = searchInput.value.toLowerCase().trim();
+            const filtrados = productos.filter(prod => {
+                const matchCat = currentCategory === "todos" || prod.categoria === currentCategory;
+                const matchText = prod.nombre.toLowerCase().includes(query) ||
+                                  prod.codigo.toLowerCase().includes(query) ||
+                                  prod.descripcion.toLowerCase().includes(query);
+                return matchCat && matchText;
+            });
+
+            const prod = filtrados[index];
+            document.getElementById("modalCode").textContent = `CÓDIGO: ${prod.codigo}`;
+            document.getElementById("modalTitle").textContent = prod.nombre;
+            document.getElementById("modalSpecs").innerHTML = `
+                <p><strong>Descripción:</strong> ${prod.descripcion}</p>
+                <p><strong>Aplicación:</strong> ${prod.aplicacion}</p>
+                <p><strong>Especificación Eléctrica:</strong> ${prod.voltaje}</p>
+                <p><strong>Disponibilidad:</strong> Consultar en tienda al 33 1386 6168</p>
+            `;
+            modal.classList.add("open");
+        }
+
+        document.getElementById("closeModal").addEventListener("click", () => modal.classList.remove("open"));
+        document.getElementById("closeModalBtn").addEventListener("click", () => modal.classList.remove("open"));
+        window.addEventListener("click", (e) => {
+            if (e.target === modal) modal.classList.remove("open");
+        });
+
+        searchInput.addEventListener("input", renderProductos);
+
+        filterButtons.forEach(btn => {
+            btn.addEventListener("click", () => {
+                filterButtons.forEach(b => b.classList.remove("active"));
+                btn.classList.add("active");
+                currentCategory = btn.dataset.category;
+                renderProductos();
+            });
+        });
+
+        renderProductos();
+    </script>
+</body>
+</html>
